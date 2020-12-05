@@ -1,0 +1,111 @@
+<!-- <div class="agenda-calendar">
+  <div class="agenda-calendar-navs">
+    <div class="agenda-calendar-month-nav">
+      <span class="text-center">{{
+        currentDate.format("MMMM YYYY").toUpperCase()
+      }}</span>
+    </div>
+  </div>
+  <div class="agenda-calendar-month">
+    <div class="agenda-calendar-day-names">
+      <div class="agenda-calendar-day-name" *ngFor="let name of namesOfDays">
+        {{ name }}
+      </div>
+    </div>
+    <div class="agenda-calendar-weeks">
+      <div class="agenda-calendar-week" *ngFor="let week of weeks">
+        <ng-container *ngFor="let day of week">
+          <div
+            class="agenda-calendar-date"
+            [ngClass]="{
+              today: day.today,
+              selected: day.selected,
+              'same-month': isSameMonth(day.mDate) && !isInRange(day.mDate),
+              disabled: !isInRange(day.mDate)
+            }"
+            (click)="selectDate(day)"
+          >
+            <span class="agenda-calendar-number">{{ day.mDate.date() }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="agenda-container">
+  <div class="agenda-header">
+    <div class="date-range">
+      <i class="fas fa-chevron-circle-left"></i>
+      <span>{{ currentDateString | date: "longDate" }}</span>
+      <i class="fas fa-chevron-circle-right"></i>
+    </div>
+    <div class="action-control">
+      <button
+        mdbBtn
+        type="button"
+        color="default"
+        class="px-3 py-2"
+        mdbWavesEffect
+      >
+        Add Availability
+        <i class="fas fa-plus ml-1"></i>
+      </button>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button
+          mdbBtn
+          type="button"
+          color="light"
+          class="px-4 py-2"
+          mdbWavesEffect
+        >
+          Day
+        </button>
+        <button
+          mdbBtn
+          type="button"
+          color="light"
+          class="px-4 py-2"
+          mdbWavesEffect
+        >
+          Week
+        </button>
+        <button
+          mdbBtn
+          type="button"
+          color="light"
+          class="px-4 py-2"
+          mdbWavesEffect
+        >
+          Month
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="agenda-body w-100 h-100">
+    <div class="agenda-body-week" *ngFor="let day of currentWeek">
+      <div class="header">
+        <span>{{ namesOfDays2[day.mDate.toDate().getDay()] }}</span>
+      </div>
+      <div class="task h-100">
+        <span class="mb-3">{{ day.mDate.toDate() | date: "MMM d" }}</span>
+        <div
+          class="events"
+          *ngFor="let eventItem of getEvent(day.mDate.toDate())"
+        >
+          <span>{{ eventItem.name }}</span>
+          <span
+            >{{ eventItem.startTime | date: "hh:mm" }}-{{
+              eventItem.endTime | date: "hh:mm"
+            }}</span
+          >
+        </div>
+        <div class="available" *ngIf="availability(day)">
+          <i class="fas fa-plus mr-1"></i>
+          <span>Add <br />Availability</span>
+        </div>
+      </div>
+    </div>
+    <div class="agenda-body-day"></div>
+  </div>
+</div>

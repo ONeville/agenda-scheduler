@@ -1,0 +1,280 @@
+@import "scss/base";
+
+.agenda-calendar {
+  background-color: #fff;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1),
+    0 4px 5px 0 rgba(0, 184, 178, 0.08);
+  border-radius: 4px;
+  z-index: 20;
+
+  margin: 10px 0;
+
+  @include media-breakpoint-up(xl) {
+    height: 360px;
+  }
+
+  &-wrapper {
+    position: relative;
+    margin-bottom: 17px;
+  }
+
+  &-input-wrapper {
+    // width: 212px;
+    position: relative;
+    height: 36px;
+    cursor: pointer;
+  }
+
+  &-input {
+    // width: 210px;
+    height: 100%;
+    outline: none;
+    border: 2px solid #dddddd;
+    border-radius: 2px;
+    padding: 0 12px;
+    // font-family: $din-font-family;
+    font-size: 13px;
+    color: #9b9b9b;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:focus,
+    &:active {
+      border-color: #9b9b9b;
+    }
+  }
+
+  &-navs {
+    background-color: #9b9b9b;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  &-nav-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+
+    &[disabled] {
+      color: transparent;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+  &-month-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 17px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 22px;
+
+    span {
+      line-height: 1;
+    }
+  }
+
+  &-day-names {
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+  }
+
+  &-day-name {
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &-weeks {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  &-week {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-date,
+  &-day-name {
+    text-align: center;
+    padding: 3px;
+    width: 14.29%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-date {
+    height: 40px;
+    position: relative;
+    color: blue;
+    font-weight: 500;
+    padding: 10px;
+
+    &:after {
+      content: "";
+      height: 50px * 0.9;
+      width: 50px * 0.9;
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      transition: all 0.5s;
+      z-index: 1;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+
+      &:after {
+        background-color: blue;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.596);
+        opacity: 0.6;
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      color: #e0e0e0;
+    }
+
+    &.same-month {
+      pointer-events: none;
+      color: #707070;
+    }
+
+    &.selected {
+      color: #fff;
+
+      &:after {
+        background-color: blue;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.596);
+      }
+
+      &:hover {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.today {
+      font-weight: bold;
+    }
+  }
+
+  &-number {
+    z-index: 10;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.agenda-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1),
+    0 4px 5px 0 rgba(0, 184, 178, 0.08);
+  border-radius: 4px;
+  padding: 20px 40px;
+  height: 70vh;
+
+  .agenda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .date-range {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        margin: 0 10px;
+        font-weight: 700;
+      }
+    }
+
+    .action-control {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .btn-group {
+        margin-left: 20px;
+
+        button {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .agenda-body {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid gray;
+    margin-top: 40px;
+    // padding: 5px;
+
+    &-week {
+      display: flex;
+      flex-direction: column;
+      width: 100px;
+
+      .header {
+        display: flex;
+        text-align: left;
+        width: 100%;
+        height: 30px;
+        background-color: gray;
+
+        span{
+          padding: 5px 5px 0;
+          font-weight: 700;
+        }
+      }
+
+      .task {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid gray;
+        padding: 0 5px;
+
+        .events{
+          background-color: rgb(170, 235, 170);
+          padding: 10px;
+          width: 100%;
+          margin: 5px 0;
+          border-radius: 4px;
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+        }
+
+        .available{
+          margin: 5px 0;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          line-height: normal;
+          font-size: 14px;
+          border: 2px dashed rgb(170, 235, 170);
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
